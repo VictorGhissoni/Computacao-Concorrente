@@ -184,9 +184,38 @@ int main(int argc, char *argv[]) {
 
   printf("\nvariacao relativa                     = %.26lf\n", (prod_ori-prod_int_global)/prod_ori);
   fprintf(descritorArquivo, "\nvariacao relativa                     = %.26lf\n", (prod_ori-prod_int_global)/prod_ori);
+
+  //calculando as outras 4 execuções pra calcular a média de tempo
+  for (int c = 0; c < 5; c ++){
+     t_args *args;
+     args = (t_args*) malloc(sizeof(t_args));
+     if(args==NULL) {    
+        printf("--ERRO: malloc argumentos\n"); exit(-1);
+     }
+     args->n = n;
+     args->nthreads = nthreads;
+     for(long int i=0; i<nthreads; i++) {
+        args->id = i;
+        if (pthread_create(&tid_sistema[i], NULL, ProdInt, (void*) args)) {
+           printf("--ERRO: pthread_create()\n"); exit(-1);
+        }
+     }
+  
+     prod_int_global = 0;
+
+     for(int i=0; i<nthreads; i++) {
+     if (pthread_join(tid_sistema[i], (void *) &prod_int_retorno_threads)) {
+        printf("--ERRO: pthread_join()\n"); exit(-1);
+     }
+     prod_int_global += *prod_int_retorno_threads;
+     free(prod_int_retorno_threads);
+     }
+  }
+  
+
   elapsed = finish - start;
-  printf("The code to be timed took %e seconds\n", elapsed);
-  fprintf(descritorArquivo, "\nThe code to be timed took %e seconds\n", elapsed);
+  fprintf(descritorArquivo, "\nThe code to be timed took a mean of %e seconds\n", elapsed/5);
+
   //desaloca os espacos de memoria
   free(vet1);
   free(vet2);
