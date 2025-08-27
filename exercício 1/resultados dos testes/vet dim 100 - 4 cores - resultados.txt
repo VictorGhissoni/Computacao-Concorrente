@@ -4,4 +4,4 @@ prod_ori                     = 47152.54227161407470703125000000
 
 variacao relativa                     = 0.00000000000000000000000000
 
-The code to be timed took 7.770061e-04 seconds
+The code to be timed took a mean of 1.465797e-04 seconds
