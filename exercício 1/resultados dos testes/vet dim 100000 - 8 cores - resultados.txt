@@ -1,0 +1,7 @@
+prod_concorrente             = 2154761.51493461430072784423828125
+
+prod_ori                     = 2154761.51493461430072784423828125
+
+variacao relativa                     = 0.00000000000000000000000000
+
+The code to be timed took 9.839535e-04 seconds
