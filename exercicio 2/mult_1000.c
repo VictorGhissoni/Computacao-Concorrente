@@ -43,22 +43,24 @@ void *ExecutaTarefa (void *arg) {
 void *extra (void *args) {
   long int nthreads = (long int) args;
   printf("Extra : esta executando...\n");
+  long int count = 0;
 
-  while (soma < 100000*nthreads){
+  while (count < nthreads*100){
     pthread_mutex_lock(&mutex);
     while (hora_de_printar==false){
         pthread_cond_wait(&cond_print, &mutex);
     }
 
     printf("soma = %ld \n", soma);
+    count++;
 
     pthread_cond_broadcast(&cond);
     hora_de_printar = false;
 
     pthread_mutex_unlock(&mutex);
   }
-  printf("soma = %ld \n", soma);
-  pthread_cond_broadcast(&cond);
+  //printf("soma = %ld \n", soma);
+  //pthread_cond_broadcast(&cond);
   printf("Extra : terminou!\n");
   pthread_exit(NULL);
 }
