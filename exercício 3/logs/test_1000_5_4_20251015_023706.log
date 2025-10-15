@@ -1,0 +1,15 @@
+=== Test Run ===
+Arguments: 1000 5 4
+Timestamp: 15/10/2025  2:37:06,42
+=== Output ===
+
+thread 0: 0
+thread 1: 91
+thread 2: 1
+thread 3: 76
+
+primos totais: 168
+thread vencedora: 1
+com 91 primos
+
+=== Exit Code: -1073741819 ===
